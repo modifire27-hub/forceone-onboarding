@@ -1,0 +1,1231 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>수임처 등록 — 포스원회계법인</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;600&family=Instrument+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@3.19.0/dist/tabler-icons.min.css">
+<style>
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+:root {
+  --bg:           #F5F4F0;
+  --surface:      #FFFFFF;
+  --surface2:     #EFEDE8;
+  --border:       rgba(0,0,0,0.09);
+  --border-mid:   rgba(0,0,0,0.14);
+  --border-strong:rgba(0,0,0,0.18);
+  --text:         #191816;
+  --text2:        #68655C;
+  --text3:        #A09D97;
+  --accent:       #1C3D5E;
+  --accent-light: #E8EFF5;
+  --accent-mid:   #3A6A99;
+  --green:        #2A6048;
+  --green-light:  #E5F2EC;
+  --red:          #A02B2B;
+  --radius:       12px;
+  --radius-sm:    8px;
+  --shadow:       0 1px 2px rgba(0,0,0,0.05), 0 3px 10px rgba(0,0,0,0.04);
+}
+
+body {
+  font-family: 'Noto Sans KR', sans-serif;
+  background: var(--bg);
+  color: var(--text);
+  min-height: 100vh;
+}
+
+/* ── Header ── */
+.header {
+  background: var(--surface);
+  border-bottom: 1px solid var(--border);
+  padding: 0 2rem;
+  height: 56px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  position: sticky;
+  top: 0;
+  z-index: 100;
+}
+.header-left {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+.header-wordmark {
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--accent);
+  letter-spacing: -0.3px;
+  line-height: 1.2;
+}
+.header-wordmark span {
+  font-weight: 400;
+  color: var(--text2);
+  font-size: 13px;
+  margin-left: 1px;
+}
+.header-sep {
+  width: 1px;
+  height: 16px;
+  background: var(--border-mid);
+}
+.header-sub {
+  font-size: 12px;
+  color: var(--text3);
+  font-family: 'Instrument Sans', sans-serif;
+  letter-spacing: 0.2px;
+}
+.header-badge {
+  font-size: 11px;
+  background: var(--accent-light);
+  color: var(--accent);
+  padding: 3px 10px;
+  border-radius: 20px;
+  font-weight: 500;
+}
+
+/* ── Page ── */
+.page {
+  max-width: 680px;
+  margin: 0 auto;
+  padding: 2.5rem 1.5rem 6rem;
+}
+
+/* ── Hero ── */
+.hero { margin-bottom: 2rem; }
+.hero-eyebrow {
+  font-size: 11px;
+  font-weight: 500;
+  color: var(--accent-mid);
+  letter-spacing: 1.8px;
+  text-transform: uppercase;
+  margin-bottom: 0.45rem;
+  font-family: 'Instrument Sans', sans-serif;
+}
+.hero h1 {
+  font-size: 22px;
+  font-weight: 600;
+  color: var(--text);
+  letter-spacing: -0.4px;
+  line-height: 1.3;
+  margin-bottom: 0.35rem;
+}
+.hero p {
+  font-size: 13px;
+  color: var(--text2);
+  line-height: 1.7;
+}
+
+/* ── Progress ── */
+.progress-wrap { margin-bottom: 2rem; }
+.progress-steps { display: flex; gap: 4px; margin-bottom: 0.5rem; }
+.progress-step {
+  flex: 1; height: 3px;
+  background: var(--border);
+  border-radius: 2px;
+  transition: background 0.3s;
+}
+.progress-step.active { background: var(--accent); }
+.progress-step.done   { background: var(--green); }
+.progress-meta {
+  display: flex;
+  justify-content: space-between;
+  font-size: 11px;
+  color: var(--text3);
+  font-family: 'Instrument Sans', sans-serif;
+}
+
+/* ── Section card ── */
+.section-card {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 1.75rem;
+  margin-bottom: 1.25rem;
+  box-shadow: var(--shadow);
+  display: none;
+}
+.section-card.visible { display: block; }
+
+.section-header {
+  display: flex;
+  align-items: flex-start;
+  gap: 11px;
+  margin-bottom: 1.5rem;
+  padding-bottom: 1.25rem;
+  border-bottom: 1px solid var(--border);
+}
+.section-icon {
+  width: 32px; height: 32px;
+  border-radius: 7px;
+  display: flex; align-items: center; justify-content: center;
+  flex-shrink: 0;
+}
+.section-icon.blue  { background: var(--accent-light); color: var(--accent-mid); }
+.section-icon.green { background: var(--green-light);  color: var(--green); }
+.section-icon.gray  { background: var(--surface2);     color: var(--text2); }
+.section-icon.slate { background: #EEF0F4;              color: #4A5568; }
+.section-icon i { font-size: 16px; }
+
+.section-header-text h2 {
+  font-size: 15px; font-weight: 600;
+  color: var(--text); margin-bottom: 2px;
+}
+.section-header-text p {
+  font-size: 12px; color: var(--text2); line-height: 1.5;
+}
+
+/* ── Sub-group divider ── */
+.sub-label {
+  font-size: 11px;
+  font-weight: 600;
+  color: var(--text2);
+  letter-spacing: 0.6px;
+  text-transform: uppercase;
+  font-family: 'Instrument Sans', sans-serif;
+  margin: 1.25rem 0 0.75rem;
+  display: flex;
+  align-items: center;
+  gap: 7px;
+}
+.sub-label::after {
+  content: '';
+  flex: 1;
+  height: 1px;
+  background: var(--border);
+}
+.sub-label:first-child { margin-top: 0; }
+
+/* ── Form elements ── */
+.form-row       { margin-bottom: 1.1rem; }
+.form-row:last-child { margin-bottom: 0; }
+.form-row-split {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1rem;
+  margin-bottom: 1.1rem;
+}
+.form-row-split:last-child { margin-bottom: 0; }
+
+label {
+  display: block;
+  font-size: 13px; font-weight: 500;
+  color: var(--text); margin-bottom: 5px;
+}
+label .req { color: var(--red); margin-left: 2px; }
+label .opt { font-size: 11px; font-weight: 400; color: var(--text3); margin-left: 4px; }
+
+input[type="text"],
+input[type="email"],
+input[type="tel"],
+input[type="number"],
+select, textarea {
+  width: 100%; height: 40px;
+  padding: 0 11px;
+  border: 1px solid var(--border-strong);
+  border-radius: var(--radius-sm);
+  background: var(--surface);
+  color: var(--text);
+  font-family: 'Noto Sans KR', sans-serif;
+  font-size: 13px;
+  outline: none;
+  -webkit-appearance: none; appearance: none;
+  transition: border-color 0.15s, box-shadow 0.15s;
+}
+input:focus, select:focus, textarea:focus {
+  border-color: var(--accent-mid);
+  box-shadow: 0 0 0 3px rgba(58,106,153,0.11);
+}
+input.error, select.error { border-color: var(--red); }
+textarea {
+  height: auto; min-height: 76px;
+  padding: 9px 11px; resize: vertical; line-height: 1.6;
+}
+select {
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='10' height='6' viewBox='0 0 10 6'%3E%3Cpath d='M1 1l4 4 4-4' stroke='%23A09D97' stroke-width='1.5' fill='none' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: right 11px center;
+  padding-right: 30px;
+  cursor: pointer;
+}
+.input-hint  { font-size: 11px; color: var(--text3); margin-top: 4px; line-height: 1.5; }
+.input-error { font-size: 11px; color: var(--red);   margin-top: 4px; display: none; }
+.input-error.show { display: block; }
+
+/* ── Card-select (radio) ── */
+.card-select-group       { display: grid; gap: 7px; }
+.card-select-group.cols2 { grid-template-columns: 1fr 1fr; }
+.card-select-group.cols3 { grid-template-columns: 1fr 1fr 1fr; }
+
+.card-option { position: relative; cursor: pointer; }
+.card-option input { position: absolute; opacity: 0; width: 0; height: 0; }
+.card-option-body {
+  display: flex; align-items: center; gap: 9px;
+  padding: 10px 12px;
+  border: 1px solid var(--border-strong);
+  border-radius: var(--radius-sm);
+  background: var(--surface);
+  transition: border-color 0.15s, background 0.15s;
+  cursor: pointer; user-select: none;
+}
+.card-option input:checked + .card-option-body,
+.card-option-body:hover {
+  border-color: var(--accent-mid);
+  background: var(--accent-light);
+}
+.co-icon {
+  width: 24px; height: 24px;
+  border-radius: 5px;
+  background: var(--surface2);
+  display: flex; align-items: center; justify-content: center;
+  color: var(--text2); flex-shrink: 0;
+  transition: background 0.15s, color 0.15s;
+}
+.card-option input:checked + .card-option-body .co-icon {
+  background: var(--accent); color: #fff;
+}
+.co-icon i { font-size: 13px; }
+.co-label { font-size: 13px; font-weight: 500; color: var(--text); flex: 1; }
+.co-desc  { font-size: 11px; color: var(--text2); display: block; margin-top: 1px; }
+
+.radio-dot {
+  width: 15px; height: 15px;
+  border-radius: 50%;
+  border: 1.5px solid var(--border-strong);
+  display: flex; align-items: center; justify-content: center;
+  flex-shrink: 0; transition: all 0.15s;
+}
+.card-option input:checked + .card-option-body .radio-dot {
+  background: var(--accent); border-color: var(--accent);
+}
+.radio-dot::after {
+  content: ''; width: 5px; height: 5px;
+  border-radius: 50%; background: transparent; transition: background 0.15s;
+}
+.card-option input:checked + .card-option-body .radio-dot::after { background: #fff; }
+
+/* Vertical card (for VAT) */
+.card-option-body.vert {
+  flex-direction: column; align-items: flex-start;
+  gap: 5px; padding: 12px 11px;
+}
+.card-option-body.vert .co-icon { margin-bottom: 1px; }
+
+/* ── Toggle card ── */
+.toggle-card {
+  display: flex; align-items: center; justify-content: space-between;
+  padding: 11px 12px;
+  border: 1px solid var(--border-strong);
+  border-radius: var(--radius-sm);
+  background: var(--surface);
+  cursor: pointer; user-select: none;
+  transition: background 0.15s, border-color 0.15s;
+  margin-bottom: 7px;
+}
+.toggle-card:last-child { margin-bottom: 0; }
+.toggle-card:hover { background: var(--surface2); }
+.toggle-card.on { border-color: var(--accent-mid); background: var(--accent-light); }
+.toggle-left { display: flex; align-items: center; gap: 9px; }
+.t-icon {
+  width: 26px; height: 26px; border-radius: 6px;
+  background: var(--surface2); color: var(--text2);
+  display: flex; align-items: center; justify-content: center;
+  flex-shrink: 0; transition: background 0.15s, color 0.15s;
+}
+.toggle-card.on .t-icon { background: var(--accent); color: #fff; }
+.t-icon i { font-size: 13px; }
+.t-label { font-size: 13px; font-weight: 500; color: var(--text); }
+.t-desc  { font-size: 11px; color: var(--text2); display: block; margin-top: 1px; }
+
+.sw {
+  width: 32px; height: 18px; background: var(--border-strong);
+  border-radius: 9px; position: relative;
+  transition: background 0.2s; flex-shrink: 0;
+}
+.toggle-card.on .sw { background: var(--accent); }
+.sw::after {
+  content: ''; width: 12px; height: 12px; background: #fff;
+  border-radius: 50%; position: absolute; top: 3px; left: 3px;
+  transition: left 0.2s; box-shadow: 0 1px 2px rgba(0,0,0,0.18);
+}
+.toggle-card.on .sw::after { left: 17px; }
+
+/* ── Sub-section ── */
+.sub-sec {
+  margin-top: 0.75rem;
+  padding: 1rem;
+  background: var(--surface2);
+  border-radius: var(--radius-sm);
+  display: none;
+}
+.sub-sec.visible { display: block; }
+
+/* ── Info box ── */
+.info-box {
+  display: flex; gap: 7px; align-items: flex-start;
+  background: var(--accent-light);
+  border: 1px solid rgba(58,106,153,0.16);
+  border-radius: var(--radius-sm);
+  padding: 10px 12px;
+  font-size: 12px; color: var(--accent); line-height: 1.6;
+  margin-top: 0.7rem;
+}
+.info-box i { font-size: 14px; flex-shrink: 0; margin-top: 1px; }
+
+/* ── Number input ── */
+.num-wrap { display: flex; align-items: center; gap: 8px; }
+.num-wrap input[type="number"] {
+  width: 76px; text-align: center;
+  font-family: 'Instrument Sans', sans-serif; font-size: 14px;
+}
+.unit { font-size: 13px; color: var(--text2); }
+
+/* ── Divider ── */
+hr.div { border: none; border-top: 1px solid var(--border); margin: 1.1rem 0; }
+
+/* ── Buttons ── */
+.btn-row {
+  display: flex; gap: 8px; justify-content: flex-end;
+  margin-top: 1.5rem;
+  padding-top: 1.25rem;
+  border-top: 1px solid var(--border);
+}
+.btn {
+  height: 40px; padding: 0 18px;
+  border-radius: var(--radius-sm);
+  font-family: 'Noto Sans KR', sans-serif;
+  font-size: 13px; font-weight: 500;
+  cursor: pointer; border: none;
+  transition: all 0.15s;
+  display: inline-flex; align-items: center; gap: 5px;
+}
+.btn i { font-size: 14px; }
+.btn-ghost   { background: var(--surface); border: 1px solid var(--border-strong); color: var(--text2); }
+.btn-ghost:hover { background: var(--surface2); }
+.btn-primary { background: var(--accent); color: #fff; }
+.btn-primary:hover { background: #162f4a; }
+.btn-success { background: var(--green); color: #fff; }
+.btn-success:hover { background: #1e4834; }
+.btn:active  { transform: scale(0.97); }
+
+/* ── Review ── */
+.review-group { margin-bottom: 0.9rem; }
+.review-group-title {
+  font-size: 10px; font-weight: 600; color: var(--text3);
+  letter-spacing: 0.8px; text-transform: uppercase;
+  font-family: 'Instrument Sans', sans-serif; margin-bottom: 5px;
+}
+.review-card {
+  background: var(--surface);
+  border: 1px solid var(--border); border-radius: var(--radius-sm); overflow: hidden;
+}
+.review-row {
+  display: flex; align-items: center; justify-content: space-between;
+  padding: 8px 12px; border-bottom: 1px solid var(--border); font-size: 12px;
+}
+.review-row:last-child { border-bottom: none; }
+.rk { color: var(--text2); }
+.rv { font-weight: 500; color: var(--text); font-family: 'Instrument Sans', sans-serif; font-size: 12px; }
+
+/* ── Complete ── */
+.complete-wrap { display: none; }
+.complete-wrap.visible { display: block; }
+.complete-card {
+  background: var(--surface); border: 1px solid var(--border);
+  border-radius: var(--radius); padding: 2.25rem 2rem;
+  box-shadow: var(--shadow); text-align: center; margin-bottom: 1.25rem;
+}
+.complete-icon-wrap {
+  width: 52px; height: 52px; background: var(--green-light);
+  border-radius: 50%; display: flex; align-items: center; justify-content: center;
+  margin: 0 auto 1.1rem; color: var(--green);
+}
+.complete-icon-wrap i { font-size: 24px; }
+.complete-card h2 { font-size: 19px; font-weight: 600; color: var(--text); margin-bottom: 0.35rem; }
+.complete-card p  { font-size: 13px; color: var(--text2); line-height: 1.7; margin-bottom: 1.25rem; }
+.btn-dl {
+  height: 42px; padding: 0 22px; background: var(--accent); color: #fff;
+  border: none; border-radius: var(--radius-sm);
+  font-size: 13px; font-weight: 500; font-family: 'Noto Sans KR', sans-serif;
+  cursor: pointer; display: inline-flex; align-items: center; gap: 6px;
+  transition: background 0.15s;
+}
+.btn-dl:hover { background: #162f4a; }
+.btn-dl i { font-size: 15px; }
+.btn-new {
+  height: 36px; padding: 0 14px; background: var(--surface);
+  border: 1px solid var(--border-strong); color: var(--text2);
+  border-radius: var(--radius-sm); font-size: 12px;
+  font-family: 'Noto Sans KR', sans-serif; cursor: pointer;
+  display: inline-flex; align-items: center; gap: 4px;
+  margin-top: 0.65rem; transition: background 0.15s;
+}
+.btn-new:hover { background: var(--surface2); }
+.btn-new i { font-size: 13px; }
+
+.next-steps {
+  background: var(--surface); border: 1px solid var(--border);
+  border-radius: var(--radius); padding: 1.25rem 1.5rem; box-shadow: var(--shadow);
+}
+.next-steps-title {
+  font-size: 10px; font-weight: 600; color: var(--text3);
+  letter-spacing: 0.8px; text-transform: uppercase;
+  font-family: 'Instrument Sans', sans-serif; margin-bottom: 0.9rem;
+}
+.step-item { display: flex; gap: 11px; align-items: flex-start; margin-bottom: 0.8rem; }
+.step-item:last-child { margin-bottom: 0; }
+.step-num {
+  width: 20px; height: 20px; border-radius: 50%;
+  background: var(--accent); color: #fff;
+  font-size: 10px; font-weight: 600;
+  display: flex; align-items: center; justify-content: center;
+  flex-shrink: 0; font-family: 'Instrument Sans', sans-serif; margin-top: 1px;
+}
+.step-num.done { background: var(--green); }
+.step-text { font-size: 13px; color: var(--text); line-height: 1.5; }
+.step-text span { color: var(--text2); font-size: 12px; display: block; margin-top: 1px; }
+
+@media (max-width: 560px) {
+  .form-row-split { grid-template-columns: 1fr; }
+  .card-select-group.cols3 { grid-template-columns: 1fr 1fr; }
+  .page { padding: 1.5rem 1rem 4rem; }
+  .header { padding: 0 1rem; }
+  .header-sub { display: none; }
+}
+</style>
+</head>
+<body>
+
+<header class="header">
+  <div class="header-left">
+    <div class="header-wordmark">
+      포스원회계법인<span> | 이흥준 CPA</span>
+    </div>
+    <div class="header-sep"></div>
+    <span class="header-sub">수임처 등록</span>
+  </div>
+  <span class="header-badge">ONBOARDING</span>
+</header>
+
+<div class="page">
+
+  <div class="hero">
+    <div class="hero-eyebrow">NEW CLIENT</div>
+    <h1>수임처 등록</h1>
+    <p>아래 내용을 입력해 주세요. 작성이 완료되면 담당 공인회계사에게 전달됩니다.</p>
+  </div>
+
+  <div class="progress-wrap">
+    <div class="progress-steps" id="progressSteps"></div>
+    <div class="progress-meta">
+      <span id="stepLabel">1 / 4단계</span>
+      <span id="stepName">기본 정보</span>
+    </div>
+  </div>
+
+  <!-- ══════════════════════
+       STEP 1  기본 정보
+  ══════════════════════ -->
+  <div class="section-card visible" id="step1">
+    <div class="section-header">
+      <div class="section-icon blue"><i class="ti ti-building-community" aria-hidden="true"></i></div>
+      <div class="section-header-text">
+        <h2>기본 정보</h2>
+        <p>회사와 대표자 정보를 입력합니다.</p>
+      </div>
+    </div>
+
+    <div class="form-row-split">
+      <div>
+        <label>회사명 <span class="req">*</span></label>
+        <input type="text" id="companyName" placeholder="주식회사 패스트레인">
+        <div class="input-error" id="err-companyName">회사명을 입력해 주세요.</div>
+      </div>
+      <div>
+        <label>대표자명 <span class="req">*</span></label>
+        <input type="text" id="ceoName" placeholder="홍길동">
+        <div class="input-error" id="err-ceoName">대표자명을 입력해 주세요.</div>
+      </div>
+    </div>
+
+    <div class="form-row">
+      <label>사업자등록번호 <span class="req">*</span></label>
+      <input type="text" id="bizNum" placeholder="000-00-00000" maxlength="12" inputmode="numeric">
+      <div class="input-hint">숫자만 입력하면 형식이 자동으로 맞춰집니다.</div>
+      <div class="input-error" id="err-bizNum">올바른 사업자번호 10자리를 입력해 주세요.</div>
+    </div>
+
+    <div class="form-row-split">
+      <div>
+        <label>사업자 구분 <span class="req">*</span></label>
+        <div class="card-select-group cols2">
+          <label class="card-option">
+            <input type="radio" name="corpType" value="false" checked>
+            <div class="card-option-body">
+              <div class="co-icon"><i class="ti ti-user" aria-hidden="true"></i></div>
+              <span class="co-label">개인</span>
+              <div class="radio-dot"></div>
+            </div>
+          </label>
+          <label class="card-option">
+            <input type="radio" name="corpType" value="true">
+            <div class="card-option-body">
+              <div class="co-icon"><i class="ti ti-building" aria-hidden="true"></i></div>
+              <span class="co-label">법인</span>
+              <div class="radio-dot"></div>
+            </div>
+          </label>
+        </div>
+      </div>
+      <div>
+        <label>결산월 <span class="req">*</span></label>
+        <select id="settlementMonth">
+          <option value="12" selected>12월 (일반)</option>
+          <option value="3">3월</option>
+          <option value="6">6월</option>
+          <option value="9">9월</option>
+          <option value="1">1월</option><option value="2">2월</option>
+          <option value="4">4월</option><option value="5">5월</option>
+          <option value="7">7월</option><option value="8">8월</option>
+          <option value="10">10월</option><option value="11">11월</option>
+        </select>
+      </div>
+    </div>
+
+    <div class="form-row-split" style="margin-bottom:0">
+      <div>
+        <label>업종코드 <span class="req">*</span></label>
+        <input type="text" id="industryCd" placeholder="예: 552101" maxlength="6" inputmode="numeric">
+        <div class="input-hint">사업자등록증 또는 홈택스에서 확인 (6자리)</div>
+        <div class="input-error" id="err-industryCd">업종코드 6자리를 입력해 주세요.</div>
+      </div>
+      <div>
+        <label>부가세 과세유형 <span class="req">*</span></label>
+        <select id="vatType">
+          <option value="일반" selected>일반과세</option>
+          <option value="간이">간이과세</option>
+          <option value="면세">면세</option>
+        </select>
+      </div>
+    </div>
+
+    <div class="btn-row">
+      <button class="btn btn-primary" onclick="goStep(2)">다음 <i class="ti ti-arrow-right"></i></button>
+    </div>
+  </div>
+
+  <!-- ══════════════════════
+       STEP 2  인건비
+  ══════════════════════ -->
+  <div class="section-card" id="step2">
+    <div class="section-header">
+      <div class="section-icon slate"><i class="ti ti-users" aria-hidden="true"></i></div>
+      <div class="section-header-text">
+        <h2>인건비 정보</h2>
+        <p>직원 현황과 고용 형태를 선택해 주세요.</p>
+      </div>
+    </div>
+
+    <div class="form-row">
+      <label>상시근로자 수 <span class="req">*</span></label>
+      <div class="num-wrap">
+        <input type="number" id="empCount" value="0" min="0" max="999">
+        <span class="unit">명</span>
+        <span style="font-size:12px; color:var(--text3); margin-left:4px;">(4대보험 가입 직원 기준)</span>
+      </div>
+      <div class="input-error" id="err-empCount">0명 이상을 입력해 주세요.</div>
+    </div>
+
+    <div class="form-row">
+      <label>급여 지급일 <span class="req">*</span></label>
+      <div class="num-wrap">
+        <input type="number" id="payDay" value="25" min="1" max="31">
+        <span class="unit">일 (매월)</span>
+      </div>
+      <div class="input-error" id="err-payDay">1~31 사이의 날짜를 입력해 주세요.</div>
+    </div>
+
+    <hr class="div">
+
+    <div class="sub-label">고용 형태</div>
+
+    <div class="toggle-card" id="t-freelance" onclick="tog('freelance')" role="checkbox" aria-checked="false">
+      <div class="toggle-left">
+        <div class="t-icon"><i class="ti ti-briefcase" aria-hidden="true"></i></div>
+        <div>
+          <span class="t-label">3.3% 프리랜서 고용</span>
+          <span class="t-desc">사업소득 원천징수 대상자</span>
+        </div>
+      </div>
+      <div class="sw" id="sw-freelance"></div>
+    </div>
+
+    <div class="toggle-card" id="t-daily" onclick="tog('daily')" role="checkbox" aria-checked="false">
+      <div class="toggle-left">
+        <div class="t-icon"><i class="ti ti-clock-hour-4" aria-hidden="true"></i></div>
+        <div>
+          <span class="t-label">일용직 고용</span>
+          <span class="t-desc">일용소득 원천징수 대상자</span>
+        </div>
+      </div>
+      <div class="sw" id="sw-daily"></div>
+    </div>
+
+    <div class="btn-row">
+      <button class="btn btn-ghost" onclick="goStep(1)"><i class="ti ti-arrow-left"></i> 이전</button>
+      <button class="btn btn-primary" onclick="goStep(3)">다음 <i class="ti ti-arrow-right"></i></button>
+    </div>
+  </div>
+
+  <!-- ══════════════════════
+       STEP 3  영업 특성
+  ══════════════════════ -->
+  <div class="section-card" id="step3">
+    <div class="section-header">
+      <div class="section-icon green"><i class="ti ti-receipt" aria-hidden="true"></i></div>
+      <div class="section-header-text">
+        <h2>영업 특성</h2>
+        <p>매출 방식과 재고 여부를 선택해 주세요.</p>
+      </div>
+    </div>
+
+    <div class="sub-label">매출 방식</div>
+
+    <div class="toggle-card" id="t-card" onclick="tog('card')" role="checkbox" aria-checked="false">
+      <div class="toggle-left">
+        <div class="t-icon"><i class="ti ti-credit-card" aria-hidden="true"></i></div>
+        <div>
+          <span class="t-label">카드 매출 있음</span>
+          <span class="t-desc">신용·체크카드 결제를 받습니다.</span>
+        </div>
+      </div>
+      <div class="sw" id="sw-card"></div>
+    </div>
+
+    <div class="toggle-card" id="t-platform" onclick="tog('platform')" role="checkbox" aria-checked="false">
+      <div class="toggle-left">
+        <div class="t-icon"><i class="ti ti-device-mobile" aria-hidden="true"></i></div>
+        <div>
+          <span class="t-label">온라인 플랫폼 매출 있음</span>
+          <span class="t-desc">배민, 쿠팡이츠, 스마트스토어 등</span>
+        </div>
+      </div>
+      <div class="sw" id="sw-platform"></div>
+    </div>
+
+    <div id="platformDetail" class="sub-sec">
+      <label style="font-size:12px; margin-bottom:6px;">이용 중인 플랫폼 <span class="opt">해당되는 것 모두 선택</span></label>
+      <div style="display:flex; flex-wrap:wrap; gap:6px;" id="platformChips"></div>
+      <div id="platformEtcWrap" style="display:none; margin-top:10px;">
+        <input type="text" id="platformEtcText" placeholder="이용 중인 플랫폼명을 직접 입력해 주세요." style="font-size:13px;">
+      </div>
+    </div>
+
+    <hr class="div">
+
+    <div class="sub-label">재고 및 자산</div>
+
+    <div class="toggle-card" id="t-inventory" onclick="tog('inventory')" role="checkbox" aria-checked="false">
+      <div class="toggle-left">
+        <div class="t-icon"><i class="ti ti-package" aria-hidden="true"></i></div>
+        <div>
+          <span class="t-label">재고 보유</span>
+          <span class="t-desc">상품·원재료 재고가 있습니다.</span>
+        </div>
+      </div>
+      <div class="sw" id="sw-inventory"></div>
+    </div>
+
+    <div class="btn-row">
+      <button class="btn btn-ghost" onclick="goStep(2)"><i class="ti ti-arrow-left"></i> 이전</button>
+      <button class="btn btn-primary" onclick="goStep(4)">다음 <i class="ti ti-arrow-right"></i></button>
+    </div>
+  </div>
+
+  <!-- ══════════════════════
+       STEP 4  차량 & 수임 시작 & 확인
+  ══════════════════════ -->
+  <div class="section-card" id="step4">
+    <div class="section-header">
+      <div class="section-icon gray"><i class="ti ti-settings-2" aria-hidden="true"></i></div>
+      <div class="section-header-text">
+        <h2>추가 정보 및 확인</h2>
+        <p>차량, 수임 희망월, 연락처를 입력하고 내용을 확인합니다.</p>
+      </div>
+    </div>
+
+    <div class="sub-label">업무용 차량</div>
+
+    <div class="toggle-card" id="t-car" onclick="tog('car')" role="checkbox" aria-checked="false">
+      <div class="toggle-left">
+        <div class="t-icon"><i class="ti ti-car" aria-hidden="true"></i></div>
+        <div>
+          <span class="t-label">업무용 차량 있음</span>
+          <span class="t-desc">차량 관련 비용을 처리합니다.</span>
+        </div>
+      </div>
+      <div class="sw" id="sw-car"></div>
+    </div>
+
+    <div class="sub-sec" id="carOptions">
+      <div class="form-row-split" style="margin-bottom:0">
+        <div>
+          <label style="font-size:12px; color:var(--text2); margin-bottom:5px;">운행기록부 작성</label>
+          <div class="card-select-group cols2">
+            <label class="card-option">
+              <input type="radio" name="drivingLog" value="true">
+              <div class="card-option-body">
+                <div class="co-icon"><i class="ti ti-check" aria-hidden="true"></i></div>
+                <span class="co-label" style="flex:1">작성함</span>
+                <div class="radio-dot"></div>
+              </div>
+            </label>
+            <label class="card-option">
+              <input type="radio" name="drivingLog" value="false" checked>
+              <div class="card-option-body">
+                <div class="co-icon"><i class="ti ti-x" aria-hidden="true"></i></div>
+                <span class="co-label" style="flex:1">미작성</span>
+                <div class="radio-dot"></div>
+              </div>
+            </label>
+          </div>
+        </div>
+        <div>
+          <label style="font-size:12px; color:var(--text2); margin-bottom:5px;">업무전용보험</label>
+          <div class="card-select-group cols2">
+            <label class="card-option">
+              <input type="radio" name="carIns" value="true">
+              <div class="card-option-body">
+                <div class="co-icon"><i class="ti ti-shield-check" aria-hidden="true"></i></div>
+                <span class="co-label" style="flex:1">가입</span>
+                <div class="radio-dot"></div>
+              </div>
+            </label>
+            <label class="card-option">
+              <input type="radio" name="carIns" value="false" checked>
+              <div class="card-option-body">
+                <div class="co-icon"><i class="ti ti-shield-off" aria-hidden="true"></i></div>
+                <span class="co-label" style="flex:1">미가입</span>
+                <div class="radio-dot"></div>
+              </div>
+            </label>
+          </div>
+        </div>
+      </div>
+      <div class="info-box" style="margin-top:0.75rem">
+        <i class="ti ti-info-circle" aria-hidden="true"></i>
+        <span>업무전용보험 미가입 시 차량 부가세는 공제받을 수 없습니다.</span>
+      </div>
+    </div>
+
+    <hr class="div">
+
+    <div class="sub-label">수임 및 연락처</div>
+
+    <div class="form-row-split">
+      <div>
+        <label>수임 희망 시작월 <span class="req">*</span></label>
+        <select id="startMonth"></select>
+        <div class="input-error" id="err-startMonth">시작월을 선택해 주세요.</div>
+      </div>
+      <div>
+        <label>담당자 연락처 <span class="opt">선택</span></label>
+        <input type="tel" id="contactPhone" placeholder="010-0000-0000">
+      </div>
+    </div>
+
+    <div class="form-row">
+      <label>특이사항 <span class="opt">선택</span></label>
+      <textarea id="memo" placeholder="인수인계 사항, 특별 요청 등을 자유롭게 입력해 주세요."></textarea>
+    </div>
+
+    <hr class="div" style="margin-bottom:1.1rem">
+
+    <!-- Review -->
+    <div id="reviewArea"></div>
+
+    <div class="btn-row">
+      <button class="btn btn-ghost" onclick="goStep(3)"><i class="ti ti-arrow-left"></i> 이전</button>
+      <button class="btn btn-success" onclick="submitForm()"><i class="ti ti-circle-check"></i> 등록 완료</button>
+    </div>
+  </div>
+
+  <!-- ══════════════════════
+       COMPLETE
+  ══════════════════════ -->
+  <div class="complete-wrap" id="completeWrap">
+    <div class="complete-card">
+      <div class="complete-icon-wrap"><i class="ti ti-circle-check" aria-hidden="true"></i></div>
+      <h2>등록이 완료되었습니다</h2>
+      <p>입력하신 정보가 저장되었습니다.<br>담당 회계사가 확인 후 수임 준비 사항을 안내해 드립니다.</p>
+      <button class="btn-dl" id="dlBtn"><i class="ti ti-download"></i> 파일 저장</button>
+      <br>
+      <button class="btn-new" onclick="resetForm()"><i class="ti ti-plus"></i> 새 수임처 등록</button>
+    </div>
+    <div class="next-steps">
+      <div class="next-steps-title">처리 절차</div>
+      <div class="step-item">
+        <div class="step-num done">1</div>
+        <div class="step-text">수임처 정보 입력 완료<span>방금 완료하셨습니다.</span></div>
+      </div>
+      <div class="step-item">
+        <div class="step-num">2</div>
+        <div class="step-text">담당자 등록 처리<span>저장된 파일을 내부 시스템에 등록합니다.</span></div>
+      </div>
+      <div class="step-item">
+        <div class="step-num">3</div>
+        <div class="step-text">수임 준비 안내<span>홈택스 수임동의 요청 등 안내 사항을 전달해 드립니다.</span></div>
+      </div>
+    </div>
+  </div>
+
+</div>
+
+<script>
+/* ── State ── */
+const STEPS = 4;
+const STEP_NAMES = ['기본 정보', '인건비', '영업 특성', '추가·확인'];
+let curStep = 1;
+const toggles = { car: false, freelance: false, daily: false, card: false, platform: false, inventory: false };
+let savedBlob = null, savedFname = '';
+
+const PLATFORMS = ['배달의민족', '쿠팡이츠', '요기요', '스마트스토어', '쿠팡', '11번가', 'G마켓', '카카오선물하기', '직접 운영 쇼핑몰', '기타'];
+const selectedPlatforms = new Set();
+
+/* ── Init ── */
+(function init() {
+  initProgress();
+  buildStartMonths();
+  buildPlatformChips();
+})();
+
+function initProgress() {
+  const wrap = document.getElementById('progressSteps');
+  wrap.innerHTML = '';
+  for (let i = 1; i <= STEPS; i++) {
+    const d = document.createElement('div');
+    d.className = 'progress-step' + (i < curStep ? ' done' : i === curStep ? ' active' : '');
+    wrap.appendChild(d);
+  }
+  document.getElementById('stepLabel').textContent = curStep + ' / ' + STEPS + '단계';
+  document.getElementById('stepName').textContent = STEP_NAMES[curStep - 1];
+}
+
+function buildStartMonths() {
+  const sel = document.getElementById('startMonth');
+  const now = new Date();
+  for (let i = 0; i < 12; i++) {
+    const d = new Date(now.getFullYear(), now.getMonth() + i, 1);
+    const y = d.getFullYear(), m = d.getMonth() + 1;
+    const o = document.createElement('option');
+    o.value = y + '-' + String(m).padStart(2, '0');
+    o.textContent = y + '년 ' + m + '월';
+    if (i === 0) o.selected = true;
+    sel.appendChild(o);
+  }
+}
+
+function buildPlatformChips() {
+  const wrap = document.getElementById('platformChips');
+  PLATFORMS.forEach(p => {
+    const btn = document.createElement('button');
+    btn.type = 'button';
+    btn.textContent = p;
+    btn.dataset.platform = p;
+    btn.style.cssText = 'padding:5px 11px; border-radius:20px; font-size:12px; font-family:inherit; cursor:pointer; border:1px solid var(--border-strong); background:var(--surface); color:var(--text2); transition:all 0.15s; white-space:nowrap;';
+    btn.onclick = () => {
+      const isEtc = (p === '기타');
+      if (selectedPlatforms.has(p)) {
+        selectedPlatforms.delete(p);
+        btn.style.background = 'var(--surface)';
+        btn.style.color = 'var(--text2)';
+        btn.style.borderColor = 'var(--border-strong)';
+        if (isEtc) {
+          document.getElementById('platformEtcWrap').style.display = 'none';
+          document.getElementById('platformEtcText').value = '';
+        }
+      } else {
+        selectedPlatforms.add(p);
+        btn.style.background = 'var(--accent)';
+        btn.style.color = '#fff';
+        btn.style.borderColor = 'var(--accent)';
+        if (isEtc) {
+          document.getElementById('platformEtcWrap').style.display = 'block';
+          setTimeout(() => document.getElementById('platformEtcText').focus(), 50);
+        }
+      }
+    };
+    wrap.appendChild(btn);
+  });
+}
+
+/* ── Step nav ── */
+function showStep(n) {
+  for (let i = 1; i <= STEPS; i++)
+    document.getElementById('step' + i).classList.remove('visible');
+  document.getElementById('completeWrap').classList.remove('visible');
+  if (n <= STEPS) document.getElementById('step' + n).classList.add('visible');
+  curStep = n;
+  initProgress();
+  window.scrollTo({ top: 0, behavior: 'smooth' });
+}
+
+function goStep(n) {
+  clearErr();
+  if (n > curStep) {
+    if (curStep === 1 && !v1()) return;
+    if (curStep === 2 && !v2()) return;
+    if (curStep === 4 && !v4()) return;
+  }
+  if (n === 4) buildReview();
+  showStep(n);
+}
+
+/* ── Validation ── */
+function clearErr() {
+  document.querySelectorAll('.input-error.show').forEach(e => e.classList.remove('show'));
+  document.querySelectorAll('input.error, select.error').forEach(e => e.classList.remove('error'));
+}
+function setErr(id) {
+  const e = document.getElementById('err-' + id), i = document.getElementById(id);
+  if (e) e.classList.add('show');
+  if (i) i.classList.add('error');
+}
+function v1() {
+  let ok = true;
+  if (!document.getElementById('companyName').value.trim()) { setErr('companyName'); ok = false; }
+  if (!document.getElementById('ceoName').value.trim())    { setErr('ceoName');     ok = false; }
+  if (!/^\d{10}$/.test(document.getElementById('bizNum').value.replace(/-/g, ''))) { setErr('bizNum'); ok = false; }
+  if (!/^\d{6}$/.test(document.getElementById('industryCd').value.trim())) { setErr('industryCd'); ok = false; }
+  return ok;
+}
+function v2() {
+  let ok = true;
+  const emp = parseInt(document.getElementById('empCount').value);
+  const pay = parseInt(document.getElementById('payDay').value);
+  if (isNaN(emp) || emp < 0) { setErr('empCount'); ok = false; }
+  if (!pay || pay < 1 || pay > 31) { setErr('payDay'); ok = false; }
+  return ok;
+}
+function v4() {
+  if (!document.getElementById('startMonth').value) { setErr('startMonth'); return false; }
+  return true;
+}
+
+/* ── Biz number format ── */
+document.getElementById('bizNum').addEventListener('input', function() {
+  let v = this.value.replace(/[^0-9]/g, '');
+  if (v.length > 5) v = v.slice(0,3) + '-' + v.slice(3,5) + '-' + v.slice(5,10);
+  else if (v.length > 3) v = v.slice(0,3) + '-' + v.slice(3);
+  this.value = v;
+});
+
+/* ── Generic toggle ── */
+function tog(key) {
+  toggles[key] = !toggles[key];
+  const card = document.getElementById('t-' + key);
+  card.classList.toggle('on', toggles[key]);
+  card.setAttribute('aria-checked', toggles[key]);
+  const sub = { car: 'carOptions', platform: 'platformDetail' };
+  if (sub[key]) document.getElementById(sub[key]).classList.toggle('visible', toggles[key]);
+}
+
+/* ── Review ── */
+function val(id) { return document.getElementById(id)?.value?.trim() || '—'; }
+function bool(key) { return toggles[key] ? '있음' : '없음'; }
+
+function buildReview() {
+  const corp = document.querySelector('input[name="corpType"]:checked').value === 'true';
+  const vatMap = { '일반': '일반과세', '간이': '간이과세', '면세': '면세' };
+  const vatLabel = vatMap[document.getElementById('vatType').value] || '';
+  const etcText = document.getElementById('platformEtcText').value.trim();
+  const platformList = [...selectedPlatforms].map(p => (p === '기타' && etcText) ? '기타(' + etcText + ')' : p);
+  const platforms = platformList.length > 0 ? platformList.join(', ') : '—';
+
+  document.getElementById('reviewArea').innerHTML = `
+    <div class="review-group">
+      <div class="review-group-title">기본 정보</div>
+      <div class="review-card">
+        <div class="review-row"><span class="rk">회사명</span><span class="rv">${esc(val('companyName'))}</span></div>
+        <div class="review-row"><span class="rk">대표자</span><span class="rv">${esc(val('ceoName'))}</span></div>
+        <div class="review-row"><span class="rk">사업자번호</span><span class="rv">${esc(val('bizNum'))}</span></div>
+        <div class="review-row"><span class="rk">구분</span><span class="rv">${corp ? '법인' : '개인'} · 결산 ${val('settlementMonth')}월</span></div>
+        <div class="review-row"><span class="rk">업종코드</span><span class="rv">${esc(val('industryCd'))} · ${vatLabel}</span></div>
+      </div>
+    </div>
+    <div class="review-group">
+      <div class="review-group-title">인건비</div>
+      <div class="review-card">
+        <div class="review-row"><span class="rk">상시근로자</span><span class="rv">${esc(val('empCount'))}명 · 급여 매월 ${esc(val('payDay'))}일</span></div>
+        <div class="review-row"><span class="rk">3.3% 프리랜서</span><span class="rv">${bool('freelance')}</span></div>
+        <div class="review-row"><span class="rk">일용직</span><span class="rv">${bool('daily')}</span></div>
+      </div>
+    </div>
+    <div class="review-group">
+      <div class="review-group-title">영업 특성</div>
+      <div class="review-card">
+        <div class="review-row"><span class="rk">카드 매출</span><span class="rv">${bool('card')}</span></div>
+        <div class="review-row"><span class="rk">플랫폼 매출</span><span class="rv">${toggles['platform'] ? platforms : '없음'}</span></div>
+        <div class="review-row"><span class="rk">재고</span><span class="rv">${bool('inventory')}</span></div>
+        <div class="review-row"><span class="rk">업무용 차량</span><span class="rv">${bool('car')}</span></div>
+      </div>
+    </div>
+    <div class="review-group" style="margin-bottom:0">
+      <div class="review-group-title">수임</div>
+      <div class="review-card">
+        <div class="review-row"><span class="rk">시작월</span><span class="rv">${esc(val('startMonth'))}</span></div>
+        <div class="review-row"><span class="rk">연락처</span><span class="rv">${esc(val('contactPhone')) || '—'}</span></div>
+      </div>
+    </div>`;
+}
+
+function esc(s) {
+  return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');
+}
+
+/* ── Submit ── */
+function submitForm() {
+  clearErr();
+  if (!v1() || !v2() || !v4()) return;
+
+  const bizFmt = document.getElementById('bizNum').value.trim();
+  const bizRaw = bizFmt.replace(/-/g,'');
+  const name   = document.getElementById('companyName').value.trim();
+  const abbrev = name.replace(/(주식회사|㈜|\(주\)|유한회사|합명회사|합자회사)/g,'')
+                     .trim().slice(0,12).replace(/[\/\\:*?"<>|]/g,'_');
+  const corp   = document.querySelector('input[name="corpType"]:checked').value === 'true';
+  const sm     = parseInt(document.getElementById('settlementMonth').value);
+  const dLog   = document.querySelector('input[name="drivingLog"]:checked')?.value === 'true';
+  const cIns   = document.querySelector('input[name="carIns"]:checked')?.value === 'true';
+  const today  = new Date().toISOString().slice(0,10);
+
+  const json = {
+    기본정보: {
+      client_id:       bizRaw,
+      folder_name:     bizRaw + '_' + abbrev,
+      회사명:          name,
+      사업자번호:      bizFmt,
+      대표자명:        document.getElementById('ceoName').value.trim(),
+      업종코드:        document.getElementById('industryCd').value.trim(),
+      업종그룹:        '',
+      매출계정:        '',
+      부가세_과세유형: document.getElementById('vatType').value,
+      법인여부:        corp,
+      결산월:          sm,
+      부가세_신고주기: corp ? '분기' : '반기',
+      수임범위:        '기장+외부조정+급여대장',
+      담당직원:        '',
+      수임시작:        document.getElementById('startMonth').value,
+      등록일:          today
+    },
+    수임준비상태: {
+      홈택스_수임동의: '미요청',
+      엣지_금융연동:   '미안내',
+      데이터_이관:     '미완료'
+    },
+    통보: {
+      방식:   '미정',
+      연락처: document.getElementById('contactPhone').value.trim()
+    },
+    인건비: {
+      상시근로자수:    parseInt(document.getElementById('empCount').value),
+      급여지급일:      parseInt(document.getElementById('payDay').value),
+      프리랜서_3p3:    toggles.freelance,
+      일용직:          toggles.daily
+    },
+    영업특성: {
+      카드매출:        toggles.card,
+      플랫폼매출:      toggles.platform,
+      플랫폼목록:      toggles.platform ? [...selectedPlatforms].map(p => {
+        if (p === '기타') { const t = document.getElementById('platformEtcText').value.trim(); return t ? '기타(' + t + ')' : '기타'; }
+        return p;
+      }) : [],
+      재고보유:        toggles.inventory
+    },
+    차량: {
+      보유:         toggles.car,
+      연간한도:     15000000,
+      운행기록부:   toggles.car ? dLog : false,
+      업무전용보험: toggles.car ? cIns : false
+    },
+    급여: {
+      급여대장_작성주체: '우리',
+      '4대보험_신고주체':'우리',
+      '4대보험_기준':    '고지액',
+      귀속기준:          '지급월',
+      사업주부담_계정: {
+        국민연금:'복리후생비', 건강보험:'복리후생비',
+        장기요양:'복리후생비', 고용보험:'복리후생비', 산재보험:'복리후생비'
+      }
+    },
+    비용룰: {},
+    회계연도설정: { 기준: '역년', 결산월: sm },
+    특이사항: document.getElementById('memo').value.trim()
+  };
+
+  const jsonStr = JSON.stringify(json, null, 2);
+  savedFname = bizRaw + '_' + abbrev + '.json';
+  savedBlob  = new Blob([jsonStr], { type: 'application/json' });
+  triggerDl();
+
+  for (let i = 1; i <= STEPS; i++)
+    document.getElementById('step' + i).classList.remove('visible');
+  document.getElementById('completeWrap').classList.add('visible');
+
+  const wrap = document.getElementById('progressSteps');
+  wrap.innerHTML = '';
+  for (let i = 1; i <= STEPS; i++) {
+    const d = document.createElement('div');
+    d.className = 'progress-step done';
+    wrap.appendChild(d);
+  }
+  document.getElementById('stepLabel').textContent = '완료';
+  document.getElementById('stepName').textContent  = '등록 완료';
+  document.getElementById('dlBtn').onclick = triggerDl;
+  window.scrollTo({ top: 0, behavior: 'smooth' });
+}
+
+function triggerDl() {
+  if (!savedBlob) return;
+  const url = URL.createObjectURL(savedBlob);
+  const a = document.createElement('a');
+  a.href = url; a.download = savedFname; a.click();
+  URL.revokeObjectURL(url);
+}
+
+/* ── Reset ── */
+function resetForm() {
+  document.getElementById('completeWrap').classList.remove('visible');
+  document.querySelectorAll('input[type=text],input[type=email],input[type=tel],textarea').forEach(el => el.value='');
+  document.getElementById('empCount').value = 0;
+  document.getElementById('payDay').value   = 25;
+  document.querySelectorAll('input[name="corpType"]')[0].checked = true;
+  document.querySelectorAll('input[name="vatType"]')[0]?.click && (document.getElementById('vatType').value = '일반');
+  document.getElementById('settlementMonth').value = '12';
+  Object.keys(toggles).forEach(k => {
+    toggles[k] = false;
+    document.getElementById('t-'+k)?.classList.remove('on');
+    document.getElementById('t-'+k)?.setAttribute('aria-checked','false');
+  });
+  document.getElementById('carOptions').classList.remove('visible');
+  document.getElementById('platformDetail').classList.remove('visible');
+  document.getElementById('platformEtcWrap').style.display = 'none';
+  document.getElementById('platformEtcText').value = '';
+  selectedPlatforms.clear();
+  document.querySelectorAll('#platformChips button').forEach(btn => {
+    btn.style.background = 'var(--surface)';
+    btn.style.color = 'var(--text2)';
+    btn.style.borderColor = 'var(--border-strong)';
+  });
+  savedBlob = null; savedFname = '';
+  curStep = 1; showStep(1);
+}
+</script>
+</body>
+</html>
