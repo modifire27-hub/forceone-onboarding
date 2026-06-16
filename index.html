@@ -742,27 +742,6 @@ hr.div { border: none; border-top: 1px solid var(--border); margin: 1.1rem 0; }
       <div class="sw" id="sw-inventory"></div>
     </div>
 
-    <div class="sub-sec" id="inventoryDetail">
-      <div class="form-row" style="margin-bottom:0.75rem">
-        <label style="font-size:12px; color:var(--text2); margin-bottom:4px;">재고 평가 방법</label>
-        <div class="info-box" style="margin-top:0">
-          <i class="ti ti-info-circle" aria-hidden="true"></i>
-          <span>포스원 사무소는 <strong>최종매입원가법</strong>을 적용합니다. 세무신고 시에는 선입선출법 또는 무신고(원가법)로 처리됩니다.</span>
-        </div>
-      </div>
-      <div class="form-row" style="margin-bottom:0">
-        <label style="font-size:12px; color:var(--text2); margin-bottom:4px;">
-          기초재고 금액 <span class="opt">선택 — 이관 수임처인 경우 입력</span>
-        </label>
-        <div class="num-wrap">
-          <input type="number" id="inventoryInitial" min="0" step="10000" placeholder="0"
-                 style="width:160px; text-align:right;">
-          <span class="unit">원</span>
-        </div>
-        <div class="input-hint">전기말 재고자산 금액을 입력하세요. 신규 사업자는 0 또는 비워두세요.</div>
-      </div>
-    </div>
-
     <div class="btn-row">
       <button class="btn btn-ghost" onclick="goStep(2)"><i class="ti ti-arrow-left"></i> 이전</button>
       <button class="btn btn-primary" onclick="goStep(4)">다음 <i class="ti ti-arrow-right"></i></button>
@@ -1053,7 +1032,7 @@ function tog(key) {
   const card = document.getElementById('t-' + key);
   card.classList.toggle('on', toggles[key]);
   card.setAttribute('aria-checked', toggles[key]);
-  const sub = { car: 'carOptions', platform: 'platformDetail', inventory: 'inventoryDetail' };
+  const sub = { car: 'carOptions', platform: 'platformDetail' };
   if (sub[key]) document.getElementById(sub[key]).classList.toggle('visible', toggles[key]);
 }
 
@@ -1093,8 +1072,7 @@ function buildReview() {
       <div class="review-card">
         <div class="review-row"><span class="rk">카드 매출</span><span class="rv">${bool('card')}</span></div>
         <div class="review-row"><span class="rk">플랫폼 매출</span><span class="rv">${toggles['platform'] ? platforms : '없음'}</span></div>
-        <div class="review-row"><span class="rk">재고</span><span class="rv">${toggles['inventory'] ? '있음 (최종매입원가법)' : '없음'}</span></div>
-        ${toggles['inventory'] && document.getElementById('inventoryInitial').value ? `<div class="review-row"><span class="rk">기초재고</span><span class="rv">${Number(document.getElementById('inventoryInitial').value).toLocaleString()}원</span></div>` : ''}
+        <div class="review-row"><span class="rk">재고</span><span class="rv">${bool('inventory')}</span></div>
         <div class="review-row"><span class="rk">업무용 차량</span><span class="rv">${bool('car')}</span></div>
       </div>
     </div>
@@ -1168,11 +1146,7 @@ function submitForm() {
         if (p === '기타') { const t = document.getElementById('platformEtcText').value.trim(); return t ? '기타(' + t + ')' : '기타'; }
         return p;
       }) : [],
-      재고보유:        toggles.inventory,
-      재고관리: toggles.inventory ? {
-        평가방법: '최종매입원가법',
-        기초재고: toggles.inventory ? (parseInt(document.getElementById('inventoryInitial').value) || 0) : 0
-      } : null
+      재고보유:        toggles.inventory
     },
     차량: {
       보유:         toggles.car,
@@ -1249,8 +1223,6 @@ function resetForm() {
     document.getElementById('t-'+k)?.setAttribute('aria-checked','false');
   });
   document.getElementById('carOptions').classList.remove('visible');
-  document.getElementById('inventoryDetail').classList.remove('visible');
-  document.getElementById('inventoryInitial').value = '';
   document.getElementById('platformDetail').classList.remove('visible');
   document.getElementById('platformEtcWrap').style.display = 'none';
   document.getElementById('platformEtcText').value = '';
