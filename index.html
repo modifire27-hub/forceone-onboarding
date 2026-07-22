@@ -602,7 +602,7 @@ hr.div { border: none; border-top: 1px solid var(--border); margin: 1.1rem 0; }
       <div>
         <label>업종코드 <span class="req">*</span></label>
         <input type="text" id="industryCd" placeholder="예: 552101" maxlength="6" inputmode="numeric">
-        <div class="input-hint">사업자등록증 또는 홈택스에서 확인 (6자리)</div>
+        <div class="input-hint">모르면 <b>999999</b>(기타)로 입력 — 나중에 런처에서 수정 가능합니다.</div>
         <div class="input-error" id="err-industryCd">업종코드 6자리를 입력해 주세요.</div>
       </div>
       <div>
@@ -1063,7 +1063,7 @@ let savedBlob = null, savedFname = '';
 /* ── 민감정보 암호화 (RSA-OAEP, 공개키만 클라이언트에 존재) ──
    개인키는 사무소 로컬에만 보관하며, config.json 생성 시에만 복호화합니다.
    이 공개키로는 암호화만 가능하고 복호화는 불가능합니다. */
-const PUBLIC_KEY_B64 = "MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEA1wqkZYhYs+gAEkSQFFOkVKVzRJb8kSRE/UXim9GOPvZWL9jWk0HYOKet3/NqNMbfUcwfbv4ssclZe/yoTBpI6w2FSQwbJDMjxMstsVz/HhoJedC4hcPYnIEAmqWaHzikD5Qf7zWMq9oBfhWJOmH+dr3vRttcwgFCi0jF2yylUtzOmQg3mMkzdcg6JLUZqZekKlMQKYv3P2TLnV5q6aRTLkE9wpJvKle46VVz9bEYALe5rPLDavOKAflBb44Kd/Xzo/IdXG5h2MYSDQ3dQcL5CswJh0izX3Q5MC5rXNzBIEX95mTsnMqFw0jrls0GFy0OlAX4Br2+nuOkuTL2bpFH0QIDAQAB";
+const PUBLIC_KEY_B64 = "MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEA7dSz+ESVz3I5R6Hk9jyY7HViWA/f2zWwSaGDAFjToNYIcTStW2hdZIjMr9rph7uSbG63tj6k9WlyS0U+G81uhZQjFt+B0EpitUQrwOy8CUzLrHUcqbeVEAgAaVtBHtg/IuUqacmyAVqYyZlh0rPvvPptD9gL32HXTpIv/foDTNLrtIZyrdiXIM+io7Zwil3+j/wXTAin4/UOSMOu4Z574up4Zif4S4njkezsBZGKHpKYw0ygOUpuuQ1jleK4sHhREHTUll11o89f23krKYMDqLZVrh8I7k6r+Ls/iw8bLeCBzqxCEoeSlep1JlpRuUesJLHOR8CitJRI70ZxlaOMWwIDAQAB";
 
 function b64ToBuf(b64) {
   const bin = atob(b64);
